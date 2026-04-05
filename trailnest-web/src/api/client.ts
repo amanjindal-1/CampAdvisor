@@ -29,7 +29,7 @@ apiClient.interceptors.response.use(
           {},
           { withCredentials: true }
         )
-        useAuthStore.getState().setAccessToken(data.data.accessToken)
+        useAuthStore.getState().setAuth(data.data.user, data.data.accessToken)
         original.headers.Authorization = `Bearer ${data.data.accessToken}`
         return apiClient(original)
       } catch {
