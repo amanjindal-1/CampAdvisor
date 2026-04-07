@@ -1,13 +1,15 @@
 package com.trailnest.api.security;
 
-import com.trailnest.api.domain.User;
-import lombok.Getter;
+import java.util.Collection;
+import java.util.List;
+
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
-import java.util.Collection;
-import java.util.List;
+import com.trailnest.api.domain.User;
+
+import lombok.Getter;
 
 /**
  * Spring Security principal that wraps the domain User.

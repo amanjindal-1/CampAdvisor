@@ -1,44 +1,32 @@
 spring:
   application:
     name: trailnest-api
+  profiles:
+    active: ${SPRING_PROFILES_ACTIVE:dev}
 
   datasource:
-    url: ${DB_URL:jdbc:postgresql://localhost:5432/postgres}
-    username: ${DB_USERNAME:postgres}
-    password: ${DB_PASSWORD:password}
     driver-class-name: org.postgresql.Driver
+    # url, username, password are set per-profile (application-dev.yml / application-prod.yml)
 
   jpa:
-    hibernate:
-      ddl-auto: validate        # Flyway owns the schema — JPA only validates
-    show-sql: true
     properties:
       hibernate:
-        dialect: org.hibernate.dialect.PostgreSQLDialect
-        format_sql: true
+        format_sql: true    # Pretty-prints SQL in logs
+    open-in-view: false     # Disable OSIV — prevents lazy loading during view rendering
 
   flyway:
-    enabled: true
     locations: classpath:db/migration
-    baseline-on-migrate: true
-
-  data:
-    redis:
-      host: ${REDIS_HOST:localhost}
-      port: ${REDIS_PORT:6379}
-
-  cache:
-    type: redis
-    redis:
-      time-to-live: 600000      # 10 minutes default TTL
 
   servlet:
     multipart:
       max-file-size: 10MB
       max-request-size: 50MB
 
+  cache:
+    type: simple 
+
 server:
-  port: 8080
+  port: ${PORT:8080}
   error:
     include-message: always
     include-binding-errors: always

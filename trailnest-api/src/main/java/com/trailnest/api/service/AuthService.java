@@ -1,5 +1,19 @@
 package com.trailnest.api.service;
 
+import java.nio.charset.StandardCharsets;
+import java.security.MessageDigest;
+import java.security.NoSuchAlgorithmException;
+import java.time.OffsetDateTime;
+import java.time.temporal.ChronoUnit;
+import java.util.UUID;
+
+import org.springframework.beans.factory.annotation.Value;
+import org.springframework.http.HttpStatus;
+import org.springframework.security.crypto.password.PasswordEncoder;
+import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
+import org.springframework.web.server.ResponseStatusException;
+
 import com.trailnest.api.domain.RefreshToken;
 import com.trailnest.api.domain.User;
 import com.trailnest.api.dto.auth.AuthTokenPair;
@@ -9,20 +23,8 @@ import com.trailnest.api.dto.user.UserDto;
 import com.trailnest.api.repository.RefreshTokenRepository;
 import com.trailnest.api.repository.UserRepository;
 import com.trailnest.api.security.JwtTokenProvider;
-import lombok.RequiredArgsConstructor;
-import org.springframework.beans.factory.annotation.Value;
-import org.springframework.http.HttpStatus;
-import org.springframework.security.crypto.password.PasswordEncoder;
-import org.springframework.stereotype.Service;
-import org.springframework.transaction.annotation.Transactional;
-import org.springframework.web.server.ResponseStatusException;
 
-import java.nio.charset.StandardCharsets;
-import java.security.MessageDigest;
-import java.security.NoSuchAlgorithmException;
-import java.time.OffsetDateTime;
-import java.time.temporal.ChronoUnit;
-import java.util.UUID;
+import lombok.RequiredArgsConstructor;
 
 @Service
 @RequiredArgsConstructor
