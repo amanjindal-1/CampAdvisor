@@ -58,7 +58,7 @@ export default function Header() {
 								className="text-muted-foreground hover:text-foreground gap-2"
 								asChild
 							>
-								<Link to="/dashboard">
+								<Link to="/my-campgrounds">
 									<div className="w-6 h-6 rounded-full bg-primary/10 flex items-center justify-center">
 										<User className="w-3.5 h-3.5 text-primary" />
 									</div>

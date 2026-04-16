@@ -36,6 +36,20 @@ jwt:
   access-token-expiry-ms: 900000       # 15 minutes
   refresh-token-expiry-ms: 604800000   # 7 days
 
+  # Mail is optional — when not configured, emails are logged to console instead
+  # Set MAIL_HOST, MAIL_USERNAME, MAIL_PASSWORD env vars to enable sending
+  mail:
+    host: ${MAIL_HOST:}
+    port: ${MAIL_PORT:587}
+    username: ${MAIL_USERNAME:}
+    password: ${MAIL_PASSWORD:}
+    properties:
+      mail.smtp.auth: true
+      mail.smtp.starttls.enable: true
+
+app:
+  frontend-url: ${FRONTEND_URL:http://localhost:3000}
+
 cloudinary:
   cloud-name: ${CLOUDINARY_CLOUD_NAME:}
   api-key: ${CLOUDINARY_KEY:}

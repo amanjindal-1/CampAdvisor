@@ -91,12 +91,12 @@ export default function Login() {
 										<FormItem>
 											<div className="flex items-center justify-between">
 												<FormLabel>Password</FormLabel>
-												<button
-													type="button"
+												<Link
+													to="/forgot-password"
 													className="text-xs text-primary hover:underline"
 												>
 													Forgot password?
-												</button>
+												</Link>
 											</div>
 											<FormControl>
 												<Input

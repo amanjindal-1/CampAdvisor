@@ -3,8 +3,10 @@ package com.trailnest.api.controller;
 import com.trailnest.api.common.ApiResponse;
 import com.trailnest.api.dto.auth.AuthResponse;
 import com.trailnest.api.dto.auth.AuthTokenPair;
+import com.trailnest.api.dto.auth.ForgotPasswordRequest;
 import com.trailnest.api.dto.auth.LoginRequest;
 import com.trailnest.api.dto.auth.RegisterRequest;
+import com.trailnest.api.dto.auth.ResetPasswordRequest;
 import com.trailnest.api.dto.user.UserDto;
 import com.trailnest.api.security.UserPrincipal;
 import com.trailnest.api.service.AuthService;
@@ -90,6 +92,41 @@ public class AuthController {
     ) {
         UUID userId = principal.getUser().getId();
         return ResponseEntity.ok(ApiResponse.ok(authService.getCurrentUser(userId)));
+    }
+
+    // POST /api/v1/auth/verify-email?token=xxx
+    @PostMapping("/verify-email")
+    public ResponseEntity<ApiResponse<Void>> verifyEmail(@RequestParam String token) {
+        authService.verifyEmail(token);
+        return ResponseEntity.ok(ApiResponse.ok("Email verified successfully", null));
+    }
+
+    // POST /api/v1/auth/resend-verification
+    @PostMapping("/resend-verification")
+    public ResponseEntity<ApiResponse<Void>> resendVerification(
+            @AuthenticationPrincipal UserPrincipal principal
+    ) {
+        authService.resendVerification(principal.getUser().getId());
+        return ResponseEntity.ok(ApiResponse.ok("Verification email sent", null));
+    }
+
+    // POST /api/v1/auth/forgot-password
+    @PostMapping("/forgot-password")
+    public ResponseEntity<ApiResponse<Void>> forgotPassword(
+            @Valid @RequestBody ForgotPasswordRequest req
+    ) {
+        authService.forgotPassword(req.email());
+        // Always same response — don't reveal whether email exists
+        return ResponseEntity.ok(ApiResponse.ok("If that email is registered, a reset link has been sent", null));
+    }
+
+    // POST /api/v1/auth/reset-password
+    @PostMapping("/reset-password")
+    public ResponseEntity<ApiResponse<Void>> resetPassword(
+            @Valid @RequestBody ResetPasswordRequest req
+    ) {
+        authService.resetPassword(req.token(), req.newPassword());
+        return ResponseEntity.ok(ApiResponse.ok("Password reset successfully. Please log in.", null));
     }
 
     // Cookie helpers

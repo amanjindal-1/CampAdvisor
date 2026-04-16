@@ -48,6 +48,18 @@ public class User {
     @Column(name = "provider_id", length = 255)
     private String providerId;
 
+    @Column(name = "verification_token")
+    private String verificationToken;
+
+    @Column(name = "verification_token_expires_at")
+    private OffsetDateTime verificationTokenExpiresAt;
+
+    @Column(name = "password_reset_token")
+    private String passwordResetToken;
+
+    @Column(name = "password_reset_token_expires_at")
+    private OffsetDateTime passwordResetTokenExpiresAt;
+
     @Builder.Default
     @Column(name = "is_verified", nullable = false)
     private boolean verified = false;
